@@ -29,7 +29,7 @@ services:
 
   postgres:
     container_name: postgres-sql
-    image: postgres
+    image: postgres:15
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
