@@ -1,8 +1,8 @@
 services:
   jenkins:
     build:
-      context: ci/Jenkins
-      dockerfile: ci/Jenkins/Dockerfile
+      context: ./ci/Jenkins
+      dockerfile: ./ci/Jenkins/Dockerfile
     container_name: jenkins
     ports:
       - "8010:8080"
