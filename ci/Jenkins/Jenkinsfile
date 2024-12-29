@@ -5,6 +5,11 @@ pipeline {
     string(name: 'build_version', defaultValue: '1.0', description: 'Build version to use for Docker image')
   }
 
+  environment {
+      TELEGRAM_BOT_TOKEN = credentials('BOT_TOKEN')
+      TELEGRAM_CHAT_ID = credentials('CHAT_ID')
+  }
+
   stages {
     stage('Checkout') {
       steps {
@@ -61,6 +66,21 @@ pipeline {
                     docker run -d --name blog-app --network=ci_common-network -p 8090:8088 ${DOCKER_IMAGE}
                 """
                 echo "Spring Boot application is running at http://localhost:8090"
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def status = currentBuild.currentResult
+                def message = "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} completed with status: ${status}."
+                sh """
+                    curl -X POST \
+                    https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
+                    -d chat_id=${TELEGRAM_CHAT_ID} \
+                    -d text="${message}"
+                """
             }
         }
     }
