@@ -69,20 +69,20 @@ pipeline {
             }
         }
     }
+  }
 
-    post {
-        always {
-            script {
-                def status = currentBuild.currentResult
-                def message = "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} completed with status: ${status}."
-                sh """
-                    curl -X POST \
-                    https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
-                    -d chat_id=${TELEGRAM_CHAT_ID} \
-                    -d text="${message}"
-                """
-            }
-        }
-    }
+  post {
+      always {
+          script {
+              def status = currentBuild.currentResult
+              def message = "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} completed with status: ${status}."
+              sh """
+                  curl -X POST \
+                  https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
+                  -d chat_id=${TELEGRAM_CHAT_ID} \
+                  -d text="${message}"
+              """
+          }
+      }
   }
 }
