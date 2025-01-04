@@ -40,6 +40,7 @@ public class CommentServiceImpl implements CommentService {
 
         log.info("Create new post successfully!");
         log.info("Create new post successfully!");
+        log.info("Create new post successfully!");
 
         return CommentResp.builder()
                 .id(comment.getId())
