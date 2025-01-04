@@ -25,6 +25,7 @@ services:
       - common-network
     environment:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+      - SONAR_SEARCH_JAVAOPTS=-Xms512m -Xmx512m
     restart: unless-stopped
 
   postgres:
