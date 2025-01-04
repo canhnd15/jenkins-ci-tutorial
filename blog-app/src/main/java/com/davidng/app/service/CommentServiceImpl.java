@@ -9,6 +9,8 @@ import com.davidng.app.repository.CommentRepository;
 import com.davidng.app.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
+    private static final Logger log = LoggerFactory.getLogger(CommentServiceImpl.class);
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
@@ -34,6 +37,8 @@ public class CommentServiceImpl implements CommentService {
         comment.setPost(optionalPost.get());
 
         comment = commentRepository.save(comment);
+
+        log.info("Create new post successfully!");
 
         return CommentResp.builder()
                 .id(comment.getId())
