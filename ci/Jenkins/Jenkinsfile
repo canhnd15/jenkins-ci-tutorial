@@ -63,7 +63,7 @@ pipeline {
                 sh """
                     docker stop blog-app || true
                     docker rm blog-app || true
-                    docker run -d --name blog-app --network=ci_common-network -p 8090:8088 ${DOCKER_IMAGE}
+                    docker run -d --name blog-app --network=common-network -p 8090:8088 ${DOCKER_IMAGE}
                 """
                 echo "Spring Boot application is running at http://localhost:8090"
             }
