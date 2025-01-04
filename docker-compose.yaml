@@ -47,6 +47,7 @@ services:
 networks:
   common-network:
     driver: bridge
+    name: common-network
 
 volumes:
   jenkins_home:
