@@ -39,6 +39,7 @@ public class CommentServiceImpl implements CommentService {
         comment = commentRepository.save(comment);
 
         log.info("Create new post successfully!");
+        log.info("Create new post successfully!");
 
         return CommentResp.builder()
                 .id(comment.getId())
