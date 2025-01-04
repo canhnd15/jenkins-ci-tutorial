@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'master', url: 'https://github.com/canhnd15/jenkins-ci-tutorial.git'
+        git branch: 'deploy-on-aws', url: 'https://github.com/canhnd15/jenkins-ci-tutorial.git'
       }
     }
 
@@ -74,12 +74,16 @@ pipeline {
   post {
       always {
           script {
+              def botToken = env.TELEGRAM_BOT_TOKEN
+              def chatId = env.TELEGRAM_CHAT_ID
+
               def status = currentBuild.currentResult
               def message = "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} completed with status: ${status}."
+
               sh """
                   curl -X POST \
-                  https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
-                  -d chat_id=${TELEGRAM_CHAT_ID} \
+                  https://api.telegram.org/bot${botToken}/sendMessage \
+                  -d chat_id=${chatId} \
                   -d text="${message}"
               """
           }
