@@ -50,6 +50,7 @@ public class PostServiceImpl implements PostService {
                             .map(comment -> CommentResp.builder()
                                     .id(comment.getId())
                                     .content(comment.getContent())
+                                    .postId(comment.getPost().getId())
                                     .build()).collect(Collectors.toList()) : null)
                     .build()).collect(Collectors.toList());
         }
